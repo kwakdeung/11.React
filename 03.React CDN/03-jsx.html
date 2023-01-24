@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSX</title>
+  </head>
+  <link href="./resources/utils.css" type="text/css" rel="stylesheet">
+  <style>  
+  </style>
+  <body>
+    <!--React 시작 위치-->
+    <div id="root"></div>
+
+    <!--React CDN 설정-->
+    <!-- 주의: 사이트를 배포할 때는 "development.js"를 "production.min.js"로 대체하세요. -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <!-- 리액트의 자바스크립트를 브라우저가 이해할 수 있는 일반 자바스크립트로 변경 -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+
+      // 한 줄 : 그냥 대입
+      const title = <h1>React Study</h1>;
+
+      // 여러 줄 : ( )로 묶기
+      const form = (
+        <form>
+          <input type="text" name="name" placeholder="영어 대사를 입력해주세요" />
+          <button type="submit">생성</button>
+        </form>        
+      );
+
+      // html의 class 가 JSX 안에서는 className 으로 ...
+      const mainCard = (
+        <div class="main-card">
+          <img src="./images/react1.png" alt="react1" />
+          <button>🤍</button>
+        </div>
+      );
+
+      const reactItem = (
+        <li>
+          <img src="./images/react2.png" />
+        </li>
+      );
+
+      // 다른 변수 포함시키기 : { } 사용
+      // 뒤에서 reactItem의 데이터를 동적으로 변경해야 한다.
+      const favorites = (
+        <ul class="favorites">
+          {reactItem}
+          {reactItem}
+          {reactItem}
+        </ul>
+      );
+
+      // target 에는 하나의 DOM 요소만 추가할 수 있다, #1
+      // 그러므로 Div로 묶기
+      const app = (
+        <div>
+          {title}
+          {form}
+          {mainCard}
+          {favorites}
+        </div>
+      );
+
+      const target = document.querySelector("#root");
+
+      // app 에는 하나의 요소만 추가할 수 있다. #2
+      ReactDOM.render(app, target);
+    </script>
+  </body>
+</html>

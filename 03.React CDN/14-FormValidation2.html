@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FormValidation2</title>
+  </head>
+  <link href="./resources/utils.css" type="text/css" rel="stylesheet">
+  <style>    
+  </style>
+  <body>
+    <!--React 시작 위치-->
+    <div id="root"></div>
+
+    <script src="./resources/utile.js"></script>
+    <!--React CDN 설정-->
+    <!-- 주의: 사이트를 배포할 때는 "development.js"를 "production.min.js"로 대체하세요. -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <!-- 리액트의 자바스크립트를 브라우저가 이해할 수 있는 일반 자바스크립트로 변경 -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+      // React 스타일링 방법
+      // 1) 기존 방법. 단 class -> className
+      // 2) 인라인 스타일링
+      // 3) https://emotion.sh/docs/introduction
+      //    https://tailwindcss.com
+
+      const Title = (props) => {
+        return <h1>{props.children}</h1>;
+      };
+    
+      const Form = ({onFormSubmit}) => {
+        const [value, setValue] = React.useState("");
+        const [errorMessage, setErrorMessage] = React.useState("");
+
+        function handleInputChange(e) {
+          const userValue = e.target.value;
+          setErrorMessage("");
+          if (includesHangul(userValue)) {
+            setErrorMessage("한글은 입력할 수 없습니다.");
+          }
+          setValue(userValue.toUpperCase());
+        }
+
+        function handleFormSubmit(e) {
+          e.preventDefault();
+          setErrorMessage("");
+
+          // props 에서 받은 메서드에서는 컴포넌트의 지역변수를 체크할 수 없다.
+          if (value === "") {
+            setErrorMessage("빈 값으로 만들 수 없습니다.");
+            return;
+          }
+
+          console.log("폼 onSubmit");
+        }
+        
+        return (
+          <form onSubmit={handleFormSubmit}>
+            <input type="text" name="name" placeholder="영어 대사를 입력해주세요" 
+                   value={value}
+                   onChange={handleInputChange}            
+            />
+            <button type="submit">생성</button>
+            <p style={{ color: "red" }}>{errorMessage}</p>
+          </form>
+        );
+      };
+      
+      
+      // event : onClick 등에서 C 대문자 주의 !!!
+      const MainCard = ({img, onHeartClick}) => {        
+        return (
+          <div className="main-card">
+            <img src={img} />
+            <button onClick={onHeartClick}>🤍</button>
+          </div>
+        );
+      };
+
+      // inline style : 중괄호 두 개 주의 ! {{ }}
+      // - 바깥의 중괄호는 리액트의 변수라는 의미
+      // - 안쪽의 중괄호는 자바스크립의 객체 표시
+      // 밸류는 스트링으로 ...
+      function ReactItem(props) {
+        return (  
+          <li>
+            <img src={props.img}
+                style={{width:"100px", border: "1px solid red"}} />
+          </li>
+        );  
+      }
+
+      function Favorites({favorites}) {
+        return (
+          <ul className="favorites">
+            {favorites.map((item, index) => {
+              //return <ReactItem img={item} />; // 에러 확인
+              return <ReactItem img={item} key={index}  />;
+            })}
+          </ul>
+        );
+      }
+      // App을 객체화. target 추가할 때 모양 주의!!!
+      const App = () => {        
+        const [mainImg, setMainImg] = React.useState(REACT1);
+        const [counter, setCounter] = React.useState(1);
+        const [favorites, setFavorites] = React.useState([]);
+
+        function handleFormSubmit(event) {
+          // event.preventDefault();
+          // console.log("폼 onSubmit");
+          setCounter(counter + 1);
+          setMainImg(items[counter]);
+        }
+
+        function handleHeartClick(event) {
+          console.log("하트 onClick");
+          setFavorites([...favorites, items[counter-1]]);
+        }
+
+        return (
+          <div>
+            <Title>React Study {counter}</Title>  
+            <Form />
+            <MainCard img={mainImg} onHeartClick={handleHeartClick} />
+            <Favorites favorites={favorites} />
+          </div>
+        );
+      };
+        
+
+      const target = document.querySelector("#root");
+
+      // App 을 추가할 때 다음 조심 !!!
+      // ReactDOM.render(App, target);    // X
+      ReactDOM.render(<App />, target);   // O
+    </script>  
+  </body>
+</html>

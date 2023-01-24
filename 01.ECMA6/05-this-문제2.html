@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /*
+    생성자 함수 내부에서 정의된 화살표 함수의 this
+    */
+
+    // 화살표 함수 안에서 사용된 this와 arguments
+    function Something() {
+      this.value = 1;
+      this.increase = () => this.value++;
+    }
+
+    // new 키워드를 이용해서 생성자 함수를 호출하면
+    // this는 생성되는 객체를 참조한다.
+    const obj = new Something();
+    obj.increase();
+    console.log(obj.value);   // 2 출력
+
+    const increase = obj.increase;
+    increase();
+    console.log(obj.value);   // 3 출력    
+  </script>
+</body>
+</html>

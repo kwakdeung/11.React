@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /*
+    setInterval 함수 사용 시 this 바인딩 문제
+    */
+
+    // increase함수의 this는 Something1의 this가 아니다.
+    // value 값이 증가하지 않는다.
+    function Something1() {
+      this.value = 1;
+      setInterval(function increase() {
+        this.value++
+        console.log(this.value);
+      }, 1000);
+    }
+    const obj1 = new Something1();
+
+    // ES5에서의 해결책
+    // this는 예약어로 현재는 서로 다른 스코프를 가지므로
+    // 같은 참조를 가리킬 수 있도록 변수를 지정한다.
+    function Something2() {
+      this.value = 1;
+      var that = this;
+      setInterval(function increase() {
+        that.value++
+        console.log(that.value);
+      }, 1000);
+    }
+    const obj2 = new Something2();
+
+      // ES6에서의 해결책 : 화살표 함수 적용 후 new로 객체 생성
+    function Something3() {
+        this.value = 1;
+        setInterval(() => {
+          this.value++
+          console.log(this.value);
+        }, 1000);
+      }
+    const obj3 = new Something3();
+
+      // ES6에서의 해결책 : bind
+    function Something4() {
+        this.value = 1;
+        setInterval(function increase() {
+          this.value++
+          console.log(this.value);
+        }.bind(this), 1000);
+      }
+    const obj4 = new Something4();
+    
+  </script>
+</body>
+</html>

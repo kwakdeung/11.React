@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /*
+    var 키워드의 문제점
+    1. 변수 중복 선언 가능하여, 예기치 못한 값을 반환할 수 있다.
+    2. 변수 선언문 이전에 변수를 참조하면 언제나 undefined를 반환한다.
+    */
+
+    var myKey = 1;   // 개발자 A가 숫자로 선언하여 사용 중
+
+    var myKey = "홍길동";   // 개발자 B가 중복하여 선언
+
+    // A가 사용할 때 문제 발생. 숫자인 줄 알고 더하기 수행하면...
+    console.log(myKey + 1);
+
+  </script>
+  
+</body>
+</html>

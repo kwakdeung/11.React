@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component #2</title>
+  </head>
+  <link href="./resources/utils.css" type="text/css" rel="stylesheet">
+  <style>    
+  </style>
+  <body>
+    <!--React 시작 위치-->
+    <div id="root"></div>
+
+    <!--React CDN 설정-->
+    <!-- 주의: 사이트를 배포할 때는 "development.js"를 "production.min.js"로 대체하세요. -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <!-- 리액트의 자바스크립트를 브라우저가 이해할 수 있는 일반 자바스크립트로 변경 -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+
+      const Title = (props) => {
+        return <h1>{props.children}</h1>;
+      };
+
+      const Form = () => (
+        <form>
+          <input type="text" name="name" placeholder="영어 대사를 입력해주세요" />
+          <button type="submit">생성</button>
+        </form>
+      );
+
+      const MainCard = ({ img, alt }) => {
+        return (
+          <div className="main-card">
+            <img src={img} alt={alt}  />
+            <button>🤍</button>
+          </div>
+        );
+      };
+
+      function ReactItem(props) {
+        return (  
+          <li>
+            <img src={props.img} alt={props.alt} />
+          </li>
+        );  
+      }
+
+      function Favorites() {
+        return (
+          <ul class="favorites">
+            <ReactItem img="./images/react2.png" alt="React2" />
+            <ReactItem img="./images/react3.png" alt="React3" />
+            <ReactItem img="./images/react4.png" alt="React4" />
+          </ul>
+        );
+      }
+
+      const app = (
+        <div>
+          <Title>React Study</Title>  
+          <Form />
+          <MainCard img="./images/react1.png" alt="React1" />
+          <Favorites />
+        </div>
+      );
+
+      const target = document.querySelector("#root");
+      ReactDOM.render(app, target);
+    </script>
+  </body>
+</html>

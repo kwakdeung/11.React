@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // const, let으로 정의된 변수도 호이스팅된다.
+    // 하지만 const, let으로 변수를 정의하기 전에 그 변수를 사용하려고 하면
+    // 참조 에러가 발생한다.
+
+    // console.log(myVar1);     // 참조 에러
+    const myVar1 = 1;
+
+    //const myVar2;
+    //console.log(myVar2);    // 참조 에러
+    //myVar2 = 1;
+
+    // console.log(myVar3);   // 참조 에러
+    let myVar3 = 1;
+
+    let myVar4;   // 먼저 let으로 정의만
+    console.log(myVar4);
+    myVar4 = 1;
+
+    // const로 정의된 변수는 재할당이 불가능하다.
+    // let, var 로 정의된 변수는 재할당 할 수 있다.
+    myVar3 = "홍길동";
+    console.log(myVar3);  
+  </script>  
+</body>
+</html>
